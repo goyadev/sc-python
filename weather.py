@@ -1,5 +1,6 @@
 import csv
 from datetime import datetime
+import math
 
 DEGREE_SYBMOL = u"\N{DEGREE SIGN}C"
 
@@ -28,17 +29,21 @@ def convert_date(iso_string):
 
 
 def convert_f_to_c(temp_in_farenheit):
-    """Converts an temperature from farenheit to celcius.
+    # Attempted 29 October 2023 - passes all test EXCEPT ONE
+    # return (int(temp_in_farenheit) - 32) * 5/9
 
-    Args:
-        temp_in_farenheit: float representing a temperature.
-    Returns:
-        A float representing a temperature in degrees celcius, rounded to 1dp.
-    """
-    pass
+    return round(((float(temp_in_farenheit)) - 32) * 5/9, 1)
+    # """Converts an temperature from farenheit to celcius.
+
+    # Args:
+  #  temp_in_farenheit: float representing a temperature.
+    # Returns:
+   # A float representing a temperature in degrees celcius, rounded to 1dp.
+  #  """
 
 
 def calculate_mean(weather_data):
+    # attempted 28 October 2023
     """Calculates the mean value from a list of numbers.
 
     Args:
@@ -46,7 +51,11 @@ def calculate_mean(weather_data):
     Returns:
         A float representing the mean value.
     """
-    pass
+
+    mean = float((num1 + num2)/2)
+    return mean
+
+# make a list from weather_data
 
 
 def load_data_from_csv(csv_file):
@@ -72,6 +81,7 @@ def find_min(weather_data):
 
 
 def find_max(weather_data):
+    # Attempted 29 October 2023
     """Calculates the maximum value in a list of numbers.
 
     Args:
@@ -79,7 +89,8 @@ def find_max(weather_data):
     Returns:
         The maximum value and it's position in the list.
     """
-    pass
+    for list in weather_data:
+        return (list)
 
 
 def generate_summary(weather_data):
