@@ -1,36 +1,46 @@
 import csv
 from datetime import datetime
-import math
+
+
+# don't import extra libraries
 
 DEGREE_SYBMOL = u"\N{DEGREE SIGN}C"
 
 
 def format_temperature(temp):
-    """Takes a temperature and returns it in string format with the degrees
-        and celcius symbols.
+    # Already done. I am freebie
 
-    Args:
-        temp: A string representing a temperature.
-    Returns:
-        A string contain the temperature and "degrees celcius."
-    """
+    # """Takes a temperature and returns it in string format with the degrees
+    #     and celcius symbols.
+
+    # Args:
+    #     temp: A string representing a temperature.
+    # Returns:
+    #     A string contain the temperature and "degrees celcius."
+    # """
+
     return f"{temp}{DEGREE_SYBMOL}"
 
 
 def convert_date(iso_string):
-    """Converts and ISO formatted date into a human readable format.
+    # Attempted 31 October 2023: Completed 31 October PASSED and DONE
+    # """Converts and ISO formatted date into a human readable format.
 
-    Args:
-        iso_string: An ISO date string..
-    Returns:
-        A date formatted like: Weekday Date Month Year e.g. Tuesday 06 July 2021
-    """
-    pass
+    # Args:
+    #     iso_string: An ISO date string..
+    # Returns:
+    #     A date formatted like: Weekday Date Month Year e.g. Tuesday 06 July 2021
+    # """
+
+    # play with fromisoformat()
+
+    date_object = datetime.fromisoformat(iso_string)
+
+    return date_object.strftime("%A %d %B %Y")
 
 
 def convert_f_to_c(temp_in_farenheit):
-    # Attempted 29 October 2023 - passes all test EXCEPT ONE
-    # return (int(temp_in_farenheit) - 32) * 5/9
+    # Attempted 29 October 2023 - WORKING and PASSED!!!!
 
     return round(((float(temp_in_farenheit)) - 32) * 5/9, 1)
     # """Converts an temperature from farenheit to celcius.
@@ -43,54 +53,107 @@ def convert_f_to_c(temp_in_farenheit):
 
 
 def calculate_mean(weather_data):
-    # attempted 28 October 2023
-    """Calculates the mean value from a list of numbers.
+    # attempted 28 October - Working and DONE!
+    # """Calculates the mean value from a list of numbers.
 
-    Args:
-        weather_data: a list of numbers.
-    Returns:
-        A float representing the mean value.
-    """
+    # Args:
+    #     weather_data: a list of numbers.
+    # Returns:
+    #     A float representing the mean value.
+    # """
+    mean_list = []
+    for item in weather_data:
+        mean_list.append(item)
 
-    mean = float((num1 + num2)/2)
+    sum = 0
+    for items in mean_list:
+        sum += float(items)
+    mean = sum / len(mean_list)
     return mean
 
-# make a list from weather_data
+# make a list from weather_data?
 
 
 def load_data_from_csv(csv_file):
-    """Reads a csv file and stores the data in a list.
+    # """Reads a csv file and stores the data in a list.
 
-    Args:
-        csv_file: a string representing the file path to a csv file.
-    Returns:
-        A list of lists, where each sublist is a (non-empty) line in the csv file.
-    """
+    # Args:
+    #     csv_file: a string representing the file path to a csv file.
+    # Returns:
+    #     A list of lists, where each sublist is a (non-empty) line in the csv file.
+    # """
     pass
 
 
 def find_min(weather_data):
-    """Calculates the minimum value in a list of numbers.
+    # Attempted 2 November. Working and Passed
+    # weather_data:
+    # [10.4, 14.5, 12.9, 8.9, 10.5, 11.7]
+    # [-10, -8, 2, -16, 4]
+    # [49, 57, 56, 55, 53]
+    # [49, 57, 56, 55, 53, 49]
+    # ['49', '57', '56', '55', '53', '49']
+    # """Calculates the minimum value in a list of numbers.
 
-    Args:
-        weather_data: A list of numbers.
-    Returns:
-        The minium value and it's position in the list.
-    """
-    pass
+    # Args:
+    #     weather_data: A list of numbers.
+    # Returns:
+    #     The minium value and it's position in the list. + new part about second value
+    # """
+    # Early return:
+    if weather_data == []:
+        return ()
+    # if not empty, then run this code:
+    smallest = float('inf')
+    smallest_index = -1
+    for min_index, thing in enumerate(weather_data):
+        if float(thing) <= smallest:
+            smallest = float(thing)
+            smallest_index = min_index
+
+    return (float(smallest), smallest_index)
 
 
 def find_max(weather_data):
-    # Attempted 29 October 2023
-    """Calculates the maximum value in a list of numbers.
+    # Attempted 29 October 2023/1 November - WORKING AND PASSED
 
-    Args:
-        weather_data: A list of numbers.
-    Returns:
-        The maximum value and it's position in the list.
-    """
-    for list in weather_data:
-        return (list)
+    # weather_data =    [49, 57, 56, 55, 57, 53, 49]
+    #                                     ^ - largest max (index: 4)
+    #                        ^ - max first found with index (index: 1)
+    # reversed [::-1] = [49, 53, 57, 55, 56, 57, 49]
+    #                                         ^ - largest max (index: 5)
+    #                        ^ - max first found with index (index: 1)
+    #
+    # len(weather_data) = 7
+    # weather_data[::-1].index(max_value) = 2
+    # 7 - 2 - 1 = 4 (the largest index we are looking for)
+
+    # """Calculates the maximum value in a list of numbers.
+    # Args:
+    #     weather_data: A list of numbers.
+    # Returns:
+    #     The maximum value and it's position in the list + new part about second value
+    # # """
+
+    # Early return:
+    if weather_data == []:
+        return ()
+    # if not empty, then run this code:
+    biggest = 0
+    biggest_index = -1
+    for max_index, thing in enumerate(weather_data):
+        if float(thing) >= biggest:
+            biggest = float(thing)
+            biggest_index = max_index
+
+    return (float(biggest), biggest_index)
+
+# Ugly way to do this:
+    # if len(weather_data) > 0:
+    #     max_value = max(weather_data)
+    #     return (float(max_value), len(weather_data) - weather_data[::-1].index(max_value) - 1)
+    # else:
+    #     return ()
 
 
 def generate_summary(weather_data):
