@@ -183,12 +183,6 @@ def find_max(weather_data):
 
 
 def generate_summary(weather_data):
-
-    #     8 Day Overview
-    #   The lowest temperature will be 8.3°C, and will occur on Friday 19 June 2020.
-    #   The highest temperature will be 22.2°C, and will occur on Sunday 21 June 2020.
-    #   The average low this week is 11.4°C.
-    #   The average high this week is 18.8°C.
     # """Outputs a summary for the given weather data.
 
     # Args:
@@ -196,9 +190,8 @@ def generate_summary(weather_data):
     # Returns:
     #     A string containing the summary information.
     # """
-    summary = "{X} Day Overview /nl The lowest temperature will be {}, and will occue on {}.   nl/The highest temperature will be {}, and will occur on {}.>"
 
-    return (summary)
+    return (weather_data)
 
 
 def generate_daily_summary(weather_data):
