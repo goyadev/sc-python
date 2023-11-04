@@ -103,10 +103,6 @@ def load_data_from_csv(csv_file):
             item[1] = int(item[1])
             item[2] = int(item[2])
 
-        # do we need to make a big empty list, then append to the big list
-
-        # then the list we print might be the big appended list?
-
     return (first_list)
 
 
@@ -183,7 +179,7 @@ def find_max(weather_data):
 
 
 def generate_summary(weather_data):
-
+    # Attempted 4 November: Not working currently
     #     8 Day Overview
     #   The lowest temperature will be 8.3°C, and will occur on Friday 19 June 2020.
     #   The highest temperature will be 22.2°C, and will occur on Sunday 21 June 2020.
@@ -196,7 +192,46 @@ def generate_summary(weather_data):
     # Returns:
     #     A string containing the summary information.
     # """
-    summary = "{X} Day Overview /nl The lowest temperature will be {}, and will occue on {}.   nl/The highest temperature will be {}, and will occur on {}.>"
+    # summary = f"{len(weather_data)} Day Overview /n The lowest temperature will be {find_min(weather_data)}, and will occur on {convert_date(weather_data)}.   nl/The highest temperature will be {}, and will occur on {}.>"
+
+    # may not use these lists if use enumerate over creating individual lists
+    # list_of_mins = []
+    # list_of_maxs = []
+    # list_average_lows = []
+    # list_average_highs = []
+
+    # weather data Day = len()
+    summary = f"{len(weather_data)} Day Overview"
+
+    # lowest temp with enumerate
+    smallest = float('inf')
+    smallest_index = -1
+    for min_index, thing in enumerate(weather_data):
+        if float(thing) <= smallest:
+            smallest = float(thing)
+            smallest_index = min_index
+
+    f"/n The lowest temperature will be {float(smallest)}"
+
+    # paired data occurs on iso-string
+    f"and will occur on {smallest_index}."
+
+    # highest temp with enumerate
+    biggest = 0
+    biggest_index = -1
+    for max_index, thing in enumerate(weather_data):
+        if float(thing) >= biggest:
+            biggest = float(thing)
+            biggest_index = max_index
+
+    f"/n The highest temperature will be {float(biggest)}"
+
+    # paired data with occurs on iso-string
+    f"and will occur on {biggest_index}."
+
+    # the lowest mean
+
+    # the highest mean
 
     return (summary)
 
