@@ -75,6 +75,10 @@ def calculate_mean(weather_data):
 
 
 def load_data_from_csv(csv_file):
+
+    # mental_visualisation =
+    # [[list_1_item1, list_1_item2, list_1_item3],[list_2_item1],[list_2_item2]]
+
     # """Reads a csv file and stores the data in a list.
 
     # Args:
@@ -82,7 +86,24 @@ def load_data_from_csv(csv_file):
     # Returns:
     #     A list of lists, where each sublist is a (non-empty) line in the csv file.
     # """
-    pass
+    with open(csv_file, encoding="utf-8") as my_file:
+        reader = csv.reader(my_file)
+
+        for line in reader:
+            # if the line in the list is empty, return nothing or print nothing? then do the fun code
+            if line == " ":
+                # do nothing
+                return ()
+            # make a list out of the line in the CSV
+        first_list = []
+        # for each list we want to add it to a big list
+        for line in reader:
+            first_list.append(line)
+            # do we need to make a big empty list, then append to the big list
+
+            # then the list we print might be the big appended list?
+
+    return (first_list)
 
 
 def find_min(weather_data):
