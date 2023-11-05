@@ -179,7 +179,7 @@ def find_max(weather_data):
 
 
 def generate_summary(weather_data):
-    # Attempted 4 November: Not working currently
+    # Attempted 4 November: Working and passed 5 November
     #     8 Day Overview
     #   The lowest temperature will be 8.3°C, and will occur on Friday 19 June 2020.
     #   The highest temperature will be 22.2°C, and will occur on Sunday 21 June 2020.
@@ -195,53 +195,94 @@ def generate_summary(weather_data):
     # summary = f"{len(weather_data)} Day Overview /n The lowest temperature will be {find_min(weather_data)}, and will occur on {convert_date(weather_data)}.   nl/The highest temperature will be {}, and will occur on {}.>"
 
     # may not use these lists if use enumerate over creating individual lists
-    # list_of_mins = []
-    # list_of_maxs = []
+    list_of_mins = []
+    list_of_maxs = []
     # list_average_lows = []
     # list_average_highs = []
 
     # weather data Day = len()
-    summary = f"{len(weather_data)} Day Overview"
 
-    # lowest temp with enumerate
-    smallest = float('inf')
-    smallest_index = -1
-    for min_index, thing in enumerate(weather_data):
-        if float(thing) <= smallest:
-            smallest = float(thing)
-            smallest_index = min_index
+    # Set loop to go through weather data for index
+    for daily_data in weather_data:
 
-    f"/n The lowest temperature will be {float(smallest)}"
+        # eg first interation = [0] (first day) - may be headers (no, checked), second = [1] (second day)
+        iso_string = daily_data[0]
+    # pull date format from format date function. Include "---- date ----". Iso string = array [0]
 
-    # paired data occurs on iso-string
-    f"and will occur on {smallest_index}."
+    # pull minimum temp as "   Minimum Temperature:  float {min} {DEGREES_SYMBOL}" = array [1]
+        min_temp = daily_data[1]
+        list_of_mins.append(min_temp)
+    # pull maximum temp as "   Maximum Temperature: float {max} {DEGREES_SYMBOL}" = array [2]
+        max_temp = daily_data[2]
+        list_of_maxs.append(max_temp)
 
-    # highest temp with enumerate
-    biggest = 0
-    biggest_index = -1
-    for max_index, thing in enumerate(weather_data):
-        if float(thing) >= biggest:
-            biggest = float(thing)
-            biggest_index = max_index
+    # find min/max:
+    lowest_temp = min(list_of_mins)
+    highest_temp = max(list_of_maxs)
 
-    f"/n The highest temperature will be {float(biggest)}"
+    # variables to store min and max date:
+    min_date_time = ""
+    max_date_time = ""
 
-    # paired data with occurs on iso-string
-    f"and will occur on {biggest_index}."
+    # second loop to allow for indexing data to find correlating
+    for daily_data in weather_data:
+        if lowest_temp == daily_data[1]:
+            min_date_time = daily_data[0]
+        if highest_temp == daily_data[2]:
+            max_date_time = daily_data[0]
 
-    # the lowest mean
+    # find index of min max temps. do I enumerate weather data
 
-    # the highest mean
+    # correlate to isostring index
 
-    return (summary)
+    # calculate averages:
+    average_min = calculate_mean(list_of_mins)
+    average_max = calculate_mean(list_of_maxs)
+
+    # return giant string with \n existing. Functions are pulled in and combined with format function
+    formatted_string = f"{len(weather_data)} Day Overview\n"
+    formatted_string += f"  The lowest temperature will be {format_temperature(convert_f_to_c(lowest_temp))}, and will occur on {convert_date(min_date_time)}.\n"
+    formatted_string += f"  The highest temperature will be {format_temperature(convert_f_to_c(highest_temp))}, and will occur on {convert_date(max_date_time)}.\n"
+    formatted_string += f"  The average low this week is {format_temperature(convert_f_to_c(average_min))}.\n"
+    formatted_string += f"  The average high this week is {format_temperature(convert_f_to_c(average_max))}.\n"
+
+    return (formatted_string)
 
 
 def generate_daily_summary(weather_data):
-    """Outputs a daily summary for the given weather data.
+    # Attempted p-code 4 November: Working and passed! 5 November
 
-    Args:
-        weather_data: A list of lists, where each sublist represents a day of weather data.
-    Returns:
-        A string containing the summary information.
-    """
-    pass
+    # ---- Friday 02 July 2021 ----
+    #   Minimum Temperature: 9.4°C
+    #   Maximum Temperature: 19.4°C
+
+    # weather_data example:[['2020-06-19T07:00:00+08:00', 47, 46], [[266 chars] 66]]
+
+    # """Outputs a daily summary for the given weather data.
+
+    # Args:
+    #     weather_data: A list of lists, where each sublist represents a day of weather data.
+    # Returns:
+    #     A string containing the summary information.
+    # """
+
+    # empty string
+    formatted_string = ""
+
+    # Set loop to go through weather data for index
+    for daily_data in weather_data:
+        # daily_data = [1:]
+        # eg first interation = [0] (first day) - may be headers (no, checked), second = [1] (second day)
+        iso_string = daily_data[0]
+    # pull date format from format date function. Include "---- date ----". Iso string = array [0]
+
+    # pull minimum temp as "   Minimum Temperature:  float {min} {DEGREES_SYMBOL}" = array [1]
+        min_temp = daily_data[1]
+    # pull maximum temp as "   Maximum Temperature: float {max} {DEGREES_SYMBOL}" = array [2]
+        max_temp = daily_data[2]
+    # return giant string with \n
+        formatted_string += f"---- {convert_date(iso_string)} ----\n"
+        formatted_string += f"  Minimum Temperature: {format_temperature(convert_f_to_c(min_temp))}\n"
+        formatted_string += f"  Maximum Temperature: {format_temperature(convert_f_to_c(max_temp))}\n\n"
+
+    return (formatted_string)
