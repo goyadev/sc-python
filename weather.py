@@ -197,39 +197,44 @@ def generate_summary(weather_data):
     # may not use these lists if use enumerate over creating individual lists
     list_of_mins = []
     list_of_maxs = []
-    # list_average_lows = []
-    # list_average_highs = []
 
-    # weather data Day = len()
+    lowest_temp = float('inf')
+    highest_temp = float('-inf')
+
+    # variables to store min and max date:
+    min_date_time = ""
+    max_date_time = ""
 
     # Set loop to go through weather data for index
     for daily_data in weather_data:
 
         # eg first interation = [0] (first day) - may be headers (no, checked), second = [1] (second day)
-        iso_string = daily_data[0]
-    # pull date format from format date function. Include "---- date ----". Iso string = array [0]
+        # iso_string = daily_data[0]
+        # pull date format from format date function. Include "---- date ----". Iso string = array [0]
 
-    # pull minimum temp as "   Minimum Temperature:  float {min} {DEGREES_SYMBOL}" = array [1]
+        # pull minimum temp as "   Minimum Temperature:  float {min} {DEGREES_SYMBOL}" = array [1]
         min_temp = daily_data[1]
         list_of_mins.append(min_temp)
     # pull maximum temp as "   Maximum Temperature: float {max} {DEGREES_SYMBOL}" = array [2]
         max_temp = daily_data[2]
         list_of_maxs.append(max_temp)
 
-    # find min/max:
-    lowest_temp = min(list_of_mins)
-    highest_temp = max(list_of_maxs)
-
-    # variables to store min and max date:
-    min_date_time = ""
-    max_date_time = ""
-
-    # second loop to allow for indexing data to find correlating
-    for daily_data in weather_data:
-        if lowest_temp == daily_data[1]:
+        # find min/max:
+        new_min_temp = min(list_of_mins)
+        new_max_temp = max(list_of_maxs)
+        if new_min_temp < lowest_temp:
+            lowest_temp = new_min_temp
             min_date_time = daily_data[0]
-        if highest_temp == daily_data[2]:
+        if new_max_temp > highest_temp:
+            highest_temp = new_max_temp
             max_date_time = daily_data[0]
+
+    # second loop to allow for indexing data to find correlating. Not needed anymore as condensed into one loop.
+    # for daily_data in weather_data:
+    #     if lowest_temp == daily_data[1]:
+    #         min_date_time = daily_data[0]
+    #     if highest_temp == daily_data[2]:
+    #         max_date_time = daily_data[0]
 
     # find index of min max temps. do I enumerate weather data
 
@@ -271,7 +276,7 @@ def generate_daily_summary(weather_data):
 
     # Set loop to go through weather data for index
     for daily_data in weather_data:
-        # daily_data = [1:]
+
         # eg first interation = [0] (first day) - may be headers (no, checked), second = [1] (second day)
         iso_string = daily_data[0]
     # pull date format from format date function. Include "---- date ----". Iso string = array [0]
